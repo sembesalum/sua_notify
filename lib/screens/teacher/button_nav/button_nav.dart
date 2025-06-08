@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sua_notify/screens/teacher/home/home.dart';
+import 'package:sua_notify/screens/teacher/notification/notification.dart';
+import 'package:sua_notify/screens/teacher/profile/profile.dart';
 
 class LectureButtomBar extends StatefulWidget {
   const LectureButtomBar({super.key});
@@ -10,10 +13,10 @@ class LectureButtomBar extends StatefulWidget {
 class _LectureButtomBarState extends State<LectureButtomBar> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
+    const LectureHomeScreen(),
+    const LectureNotificationScreen(),
     const Text(''),
-    const Text(''),
-    const Text(''),
-    const Text(''),
+    const LectureProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,11 +50,12 @@ class _LectureButtomBarState extends State<LectureButtomBar> {
                 icon: Icon(Icons.home_filled),
                 label: "Home",
               ),
-              NavigationDestination(icon: Icon(Icons.calendar_month), label: "Timetable"),
+              
               NavigationDestination(
                 icon: Icon(Icons.notifications),
                 label: "Notification",
               ),
+              NavigationDestination(icon: Icon(Icons.calendar_month), label: "My Task"),
               NavigationDestination(
                 icon: Icon(Icons.person),
                 label: "Profile",

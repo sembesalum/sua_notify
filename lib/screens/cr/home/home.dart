@@ -15,32 +15,34 @@ class CrHomeScreen extends StatelessWidget {
         'title': 'Software Engineering',
         'dateTime': now.add(const Duration(hours: 1)),
         'location': 'Room 104',
-        'status': 'confirmed'
+        'status': 'confirmed',
       },
       {
         'title': 'Database Systems',
         'dateTime': now.add(const Duration(days: 1)),
         'location': 'Room 202',
-        'status': 'unconfirmed'
+        'status': 'unconfirmed',
       },
       {
         'title': 'Artificial Intelligence',
         'dateTime': now,
         'location': 'Lab 2',
-        'status': 'confirmed'
+        'status': 'confirmed',
       },
     ];
 
-    final todayClasses = timetableList
-        .where((e) =>
-            e['dateTime'].day == now.day &&
-            e['dateTime'].month == now.month &&
-            e['dateTime'].year == now.year)
-        .toList();
+    final todayClasses =
+        timetableList
+            .where(
+              (e) =>
+                  e['dateTime'].day == now.day &&
+                  e['dateTime'].month == now.month &&
+                  e['dateTime'].year == now.year,
+            )
+            .toList();
 
-    final upcomingClasses = timetableList
-        .where((e) => e['dateTime'].isAfter(now))
-        .toList();
+    final upcomingClasses =
+        timetableList.where((e) => e['dateTime'].isAfter(now)).toList();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -48,15 +50,51 @@ class CrHomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            _buildSectionTitleRow("Today's Classes", onShowAll: () {
-              // TODO: Handle show all navigation or modal
-            }),
+            Padding(
+            padding: const EdgeInsets.only(left: 1, right: 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hi Bless Noah!',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('You are Welcome', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/bell.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+            _buildSectionTitleRow(
+              "Today's Classes",
+              onShowAll: () {
+                // TODO: Handle show all navigation or modal
+              },
+            ),
             ...todayClasses.map((e) => _buildClassCard(e)),
-
-            const SizedBox(height: 20),
-            _buildSectionTitleRow("Upcoming Classes", onShowAll: () {
-              // TODO: Handle show all navigation or modal
-            }),
+      
+            const SizedBox(height: 5),
+            _buildSectionTitleRow(
+              "Upcoming Classes",
+              onShowAll: () {
+                // TODO: Handle show all navigation or modal
+              },
+            ),
             ...upcomingClasses.map((e) => _buildClassCard(e)),
           ],
         ),
@@ -64,7 +102,10 @@ class CrHomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitleRow(String title, {required VoidCallback onShowAll}) {
+  Widget _buildSectionTitleRow(
+    String title, {
+    required VoidCallback onShowAll,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -80,10 +121,7 @@ class CrHomeScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: onShowAll,
-            child: Text(
-              "Show All",
-              style: TextStyle(color: primaryColor),
-            ),
+            child: Text("Show All", style: TextStyle(color: primaryColor)),
           ),
         ],
       ),
@@ -112,7 +150,7 @@ class CrHomeScreen extends StatelessWidget {
                     classInfo['title'],
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                      fontSize: 14,
                       color: primaryColor,
                     ),
                   ),
@@ -125,7 +163,7 @@ class CrHomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 2),
             Text(timeStr),
             Text(classInfo['location']),
             const SizedBox(height: 4),
